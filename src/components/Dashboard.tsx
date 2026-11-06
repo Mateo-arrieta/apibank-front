@@ -104,7 +104,7 @@ export default function Dashboard({
               />
             </>
           )}
-          <section className="dashboard-grid">
+            <section className={isOverview ? 'dashboard-grid' : 'dashboard-grid dashboard-grid-single'}>
             <div className="primary-column" id="overview">
               <Routes>
                 <Route
@@ -134,6 +134,8 @@ export default function Dashboard({
                       loading={loading}
                       selectedAccountId={selectedAccount?.id ?? null}
                       onSelectAccount={onSelectAccount}
+                      variant="cards"
+                      onOpenTransfer={() => setTransferOpen(true)}
                     />
                   )}
                 />
@@ -151,17 +153,19 @@ export default function Dashboard({
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </div>
-            <aside className="secondary-column">
-              <MarketPanel
-                symbol={symbol}
-                quote={quote}
-                profile={profile}
-                loading={marketLoading}
-                error={marketError}
-                onSearch={onSearchSymbol}
-                onRetry={onRetryMarket}
-              />
-            </aside>
+             {isOverview && (
+              <aside className="secondary-column">
+                <MarketPanel
+                  symbol={symbol}
+                  quote={quote}
+                  profile={profile}
+                  loading={marketLoading}
+                  error={marketError}
+                  onSearch={onSearchSymbol}
+                  onRetry={onRetryMarket}
+                />
+              </aside>
+            )}
           </section>
           <footer className="app-footer">
             <span>Cobalto · Proyecto de demostración</span>
