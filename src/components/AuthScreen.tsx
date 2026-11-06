@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { ArrowRight, ArrowUpRight, Check, LoaderCircle, ShieldCheck } from 'lucide-react'
+import { ArrowRight, LoaderCircle, ShieldCheck } from 'lucide-react'
 import type { AuthMode } from '../types/auth'
 import BrandMark from './BrandMark'
 
@@ -29,93 +29,71 @@ export default function AuthScreen({ onAuthenticate, message }: AuthScreenProps)
   }
 
   return (
-    <main className="auth-page">
-      <section className="auth-art" aria-label="Bckd Bank">
-        <a className="brand brand-on-dark" href="#login">
-          <BrandMark /><span className="brand-name">bckd<span>bank</span></span>
-        </a>
-        <div className="auth-art-copy">
-          <span className="eyebrow">TU BANCA, A TU RITMO</span>
-          <h1>Lo importante<br />es avanzar<span>.</span></h1>
-          <p>Un espacio claro para cuidar, mover y entender tu dinero.</p>
+    <main className="login-shell">
+      <section className="login-card" id="login">
+        <div className="login-brand">
+          <BrandMark />
+          <span className="login-brand-name">cobalto<span>.</span></span>
         </div>
-        <div className="auth-visual" aria-hidden="true">
-          <div className="visual-orbit orbit-one" />
-          <div className="visual-orbit orbit-two" />
-          <div className="visual-card visual-card-back">
-            <span className="visual-card-brand">bckd<span>bank</span></span>
-            <span className="visual-card-chip" />
-          </div>
-          <div className="visual-card visual-card-front">
-            <span className="visual-card-label">VISTA DE EJEMPLO</span>
-            <strong>$ 8.420,50</strong>
-            <span className="visual-card-bottom">
-              <span>•••• 2846</span><span className="card-circles"><i /><i /></span>
-            </span>
-          </div>
-          <div className="visual-float float-arrow"><ArrowUpRight size={19} /></div>
-          <div className="visual-float float-check"><Check size={17} /></div>
+
+        <div className="auth-intro">
+          <span className="eyebrow">ACCESO</span>
+          <h2>{mode === 'login' ? 'Bienvenido de vuelta.' : 'Crea tu cuenta.'}</h2>
+          <p>{mode === 'login' ? 'Entra para ver tus cuentas y movimientos.' : 'Solo toma un minuto empezar.'}</p>
         </div>
-        <div className="auth-art-foot"><span>FINANZAS MÁS HUMANAS</span><span>01 — 03</span></div>
+
+        <div className="auth-tabs" role="tablist" aria-label="Acceso a la cuenta">
+          <button
+            type="button"
+            className={mode === 'login' ? 'auth-tab active' : 'auth-tab'}
+            onClick={() => { setMode('login'); setFormError('') }}
+            role="tab"
+            aria-selected={mode === 'login'}
+          >
+            Iniciar sesión
+          </button>
+          <button
+            type="button"
+            className={mode === 'register' ? 'auth-tab active' : 'auth-tab'}
+            onClick={() => { setMode('register'); setFormError('') }}
+            role="tab"
+            aria-selected={mode === 'register'}
+          >
+            Registrarme
+          </button>
+        </div>
+
+        <form className="auth-form" onSubmit={submit}>
+          {mode === 'register' && (
+            <div className="name-fields">
+              <label>Nombre<input name="firstName" autoComplete="given-name" required placeholder="Tu nombre" /></label>
+              <label>Apellido<input name="lastName" autoComplete="family-name" required placeholder="Tu apellido" /></label>
+            </div>
+          )}
+          <label>Correo electrónico<input name="email" type="email" autoComplete="email" required placeholder="nombre@correo.com" /></label>
+          <label>
+            Contraseña
+            <input
+              name="password"
+              type="password"
+              autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
+              minLength={6}
+              required
+              placeholder={mode === 'login' ? 'Tu contraseña' : 'Mínimo 6 caracteres'}
+            />
+          </label>
+          {(formError || message) && <div className="alert alert-error" role="alert">{formError || message}</div>}
+          <button className="primary-button auth-submit" type="submit" disabled={busy}>
+            {busy
+              ? <LoaderCircle className="spin" size={18} />
+              : <>{mode === 'login' ? 'Ingresar' : 'Crear mi cuenta'}<ArrowRight size={17} /></>}
+          </button>
+        </form>
+
+        <div className="auth-assurance"><ShieldCheck size={17} /><span>Tu conexión está cifrada.</span></div>
       </section>
-      <section className="auth-side" id="login">
-        <div className="auth-mobile-brand">
-          <BrandMark /><span className="brand-name">bckd<span>bank</span></span>
-        </div>
-        <div className="auth-form-wrap">
-          <div className="auth-intro">
-            <span className="eyebrow">ÁREA PERSONAL</span>
-            <h2>{mode === 'login' ? 'Qué bueno verte.' : 'Empecemos.'}</h2>
-            <p>{mode === 'login' ? 'Ingresa a tu espacio financiero.' : 'Crea tu acceso y abre tu primera cuenta.'}</p>
-          </div>
-          <div className="auth-tabs" role="tablist" aria-label="Acceso a la cuenta">
-            <button
-              className={mode === 'login' ? 'auth-tab active' : 'auth-tab'}
-              onClick={() => { setMode('login'); setFormError('') }}
-              role="tab"
-              aria-selected={mode === 'login'}
-            >
-              Iniciar sesión
-            </button>
-            <button
-              className={mode === 'register' ? 'auth-tab active' : 'auth-tab'}
-              onClick={() => { setMode('register'); setFormError('') }}
-              role="tab"
-              aria-selected={mode === 'register'}
-            >
-              Crear cuenta
-            </button>
-          </div>
-          <form className="auth-form" onSubmit={submit}>
-            {mode === 'register' && (
-              <div className="name-fields">
-                <label>Nombre<input name="firstName" autoComplete="given-name" required placeholder="Tu nombre" /></label>
-                <label>Apellido<input name="lastName" autoComplete="family-name" required placeholder="Tu apellido" /></label>
-              </div>
-            )}
-            <label>Correo electrónico<input name="email" type="email" autoComplete="email" required placeholder="nombre@correo.com" /></label>
-            <label>
-              Contraseña
-              <input
-                name="password"
-                type="password"
-                autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
-                minLength={6}
-                required
-                placeholder={mode === 'login' ? 'Tu contraseña' : 'Mínimo 6 caracteres'}
-              />
-            </label>
-            {(formError || message) && <div className="alert alert-error" role="alert">{formError || message}</div>}
-            <button className="primary-button auth-submit" type="submit" disabled={busy}>
-              {busy
-                ? <LoaderCircle className="spin" size={18} />
-                : <>{mode === 'login' ? 'Entrar a mi cuenta' : 'Crear mi cuenta'}<ArrowRight size={17} /></>}
-            </button>
-          </form>
-          <div className="auth-assurance"><ShieldCheck size={17} /><span>Tus datos viajan protegidos y cifrados.</span></div>
-        </div>
-        <footer className="auth-footer"><span>© 2026 Bckd Bank</span><span>Entorno de demostración</span></footer>
-      </section>
+
+      <footer className="login-footer"><span>© 2026 Cobalto</span><span>Proyecto de demostración</span></footer>
     </main>
   )
 }

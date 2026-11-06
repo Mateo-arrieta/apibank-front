@@ -66,7 +66,7 @@ export default function TransferDialog({
         </div>
         <span className="eyebrow">MOVIMIENTO ENTRE CUENTAS</span>
         <h2 id="transfer-title">Nueva transferencia</h2>
-        <p className="dialog-copy">Envía dinero de forma segura a otra cuenta Bckd.</p>
+        <p className="dialog-copy">Envía dinero de forma segura a otra cuenta Cobalto.</p>
         <form className="transfer-form" onSubmit={submit}>
           <label>
             Cuenta de origen

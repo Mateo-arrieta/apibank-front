@@ -164,7 +164,7 @@ export default function Dashboard({
             </aside>
           </section>
           <footer className="app-footer">
-            <span>Bckd Bank · Plataforma de demostración</span>
+            <span>Cobalto · Proyecto de demostración</span>
             <span>Cuentas en USD · Mercado según moneda de Finnhub</span>
           </footer>
         </div>

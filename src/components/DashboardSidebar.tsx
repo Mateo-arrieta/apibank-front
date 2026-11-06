@@ -9,13 +9,13 @@ interface DashboardSidebarProps {
 export default function DashboardSidebar({ onLogout }: DashboardSidebarProps) {
   return (
     <aside className="sidebar">
-      <Link className="brand" to="/" aria-label="Bckd Bank, inicio">
-        <BrandMark /><span className="brand-name">bckd<span>bank</span></span>
+      <Link className="brand" to="/" aria-label="Cobalto, inicio">
+        <BrandMark /><span className="brand-name">cobalto<span>.</span></span>
       </Link>
-      <div className="sidebar-label">MENÚ PRINCIPAL</div>
+      <div className="sidebar-label">NAVEGACIÓN</div>
       <nav className="side-nav" aria-label="Navegación principal">
         <NavLink to="/" end className={({ isActive }) => `nav-link ${isActive ? 'is-active' : ''}`}>
-          <LayoutDashboard size={18} />Resumen
+          <LayoutDashboard size={18} />Inicio
         </NavLink>
         <NavLink to="/accounts" className={({ isActive }) => `nav-link ${isActive ? 'is-active' : ''}`}>
           <Wallet size={18} />Mis cuentas
@@ -26,10 +26,10 @@ export default function DashboardSidebar({ onLogout }: DashboardSidebarProps) {
       </nav>
       <div className="sidebar-bottom">
         <div className="secure-note">
-          <ShieldCheck size={17} /><span>Conexión segura<br /><strong>Sesión protegida</strong></span>
+          <ShieldCheck size={17} /><span>Sesión activa<br /><strong>Conexión cifrada</strong></span>
         </div>
         <button className="nav-link logout-link" onClick={onLogout}><LogOut size={18} />Cerrar sesión</button>
-        <span className="sidebar-version">Bckd Bank · Demo</span>
+        <span className="sidebar-version">Cobalto · v1.0</span>
       </div>
     </aside>
   )

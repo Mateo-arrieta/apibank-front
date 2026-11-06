@@ -19,10 +19,10 @@ export default function DashboardSummary({
   onOpenTransfer,
 }: DashboardSummaryProps) {
   return (
-    <section className="summary-grid" aria-label="Resumen financiero">
+    <section className="summary-stack" aria-label="Resumen financiero">
       <article className="balance-panel">
         <div className="balance-panel-top">
-          <span>Saldo total disponible · USD</span>
+          <span>Tu saldo disponible</span>
           <span className="balance-chip">
             <Wallet size={14} />{accountCount} {accountCount === 1 ? 'cuenta' : 'cuentas'}
           </span>
@@ -31,7 +31,7 @@ export default function DashboardSummary({
           {loading ? <span className="balance-skeleton" /> : formatMoney(totalBalance)}
         </div>
         <div className="balance-panel-bottom">
-          <span>Consolidado de tus cuentas</span>
+          <span>Suma de todas tus cuentas · USD</span>
           <button onClick={onRefresh} aria-label="Actualizar saldos" title="Actualizar saldos">
             <RefreshCw size={16} />
           </button>
@@ -41,13 +41,13 @@ export default function DashboardSummary({
       </article>
       <article className="metric-panel">
         <div className="metric-icon metric-icon-mint"><ArrowLeftRight size={18} /></div>
-        <span className="metric-label">Movimientos registrados</span>
+        <span className="metric-label">Movimientos</span>
         <strong className="metric-value">{loading ? '—' : transactionCount}</strong>
-        <span className="metric-footnote">En tus cuentas</span>
+        <span className="metric-footnote">Registrados hasta hoy</span>
       </article>
       <button className="transfer-cta" onClick={onOpenTransfer} disabled={accountCount === 0}>
         <span className="cta-icon"><ArrowUpRight size={20} /></span>
-        <span><strong>Transferir dinero</strong><small>Envía a otra cuenta Bckd</small></span>
+        <span><strong>Enviar dinero</strong><small>A otra cuenta Cobalto</small></span>
         <ArrowRight className="cta-arrow" size={18} />
       </button>
     </section>

@@ -9,7 +9,7 @@ import './App.css'
 
 function readSession(): AuthResponse | null {
   try {
-    const saved = localStorage.getItem('bckdbank.session')
+    const saved = localStorage.getItem('cobalto.session')
     if (!saved) return null
     const session = JSON.parse(saved) as AuthResponse
     return session.token && session.email ? session : null
@@ -65,7 +65,7 @@ function App() {
       } catch (error) {
         if (!active) return
         if (error instanceof ApiError && (error.status === 401 || error.status === 403)) {
-          localStorage.removeItem('bckdbank.session')
+          localStorage.removeItem('cobalto.session')
           setSession(null)
           setAuthMessage('Tu sesión venció. Inicia sesión nuevamente.')
         } else {
@@ -114,7 +114,7 @@ function App() {
       const next = mode === 'login'
         ? await bankApi.login(values.email, values.password)
         : await bankApi.register(values.firstName, values.lastName, values.email, values.password)
-      localStorage.setItem('bckdbank.session', JSON.stringify(next))
+      localStorage.setItem('cobalto.session', JSON.stringify(next))
       setSession(next)
       setToast(mode === 'register' ? 'Cuenta creada. Ya puedes comenzar.' : 'Sesión iniciada correctamente.')
     } catch (error) {
@@ -123,7 +123,7 @@ function App() {
   }
 
   function logout() {
-    localStorage.removeItem('bckdbank.session')
+    localStorage.removeItem('cobalto.session')
     setSession(null)
     setAccounts([])
     setTransactions([])

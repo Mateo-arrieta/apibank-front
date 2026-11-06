@@ -97,7 +97,7 @@ export default function MarketPanel({
       </section>
       <section className="security-panel">
         <div className="security-icon"><ShieldCheck size={19} /></div>
-        <div><strong>Tu banca, protegida</strong><p>Las operaciones se validan de forma segura.</p></div>
+        <div><strong>Tu dinero, protegido</strong><p>Cada operación se valida de forma segura.</p></div>
         <CircleHelp className="security-help" size={16} />
       </section>
     </>

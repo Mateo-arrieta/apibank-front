@@ -483,3 +483,33 @@
 .secure-note strong, .sidebar-version { color: #9CA3AF; }
 
 * { font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif !important; }
+
+/* ===== Cobalto: logo, login y resumen ===== */
+* { letter-spacing: 0 !important; }
+
+.brand-logo { width: 34px; height: 34px; flex: 0 0 34px; }
+
+/* Login */
+.login-shell {
+  min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 20px; padding: 32px 16px;
+  background:
+    radial-gradient(circle at 18% 12%, rgb(59 130 246 / 0.55) 0%, transparent 45%),
+    linear-gradient(160deg, #111827 0%, #1F2937 55%, #1E3A8A 140%);
+}
+.login-card {
+  width: min(100%, 440px); padding: 34px 32px 28px; border-radius: 24px;
+  background: #fff; box-shadow: 0 24px 60px rgb(0 0 0 / 0.35);
+}
+.login-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 26px; }
+.login-brand-name { font-size: 22px; font-weight: 700; color: #1F2937; }
+.login-brand-name span { color: #3B82F6; }
+.login-footer { display: flex; gap: 18px; color: #9CA3AF; font-size: 11px; }
+
+/* Resumen: saldo arriba a todo el ancho, dos tarjetas debajo */
+.summary-stack { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.summary-stack .balance-panel { grid-column: 1 / -1; min-height: 190px; }
+.summary-stack .balance-value { font-size: 40px; }
+.summary-stack .metric-panel,
+.summary-stack .transfer-cta { min-height: 120px; }
+@media (max-width: 720px) { .summary-stack { grid-template-columns: 1fr; } }
