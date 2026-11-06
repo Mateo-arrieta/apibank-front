@@ -1,4 +1,4 @@
-import { ArrowLeftRight, ArrowRight, ArrowUpRight, RefreshCw, Wallet } from 'lucide-react'
+import { ArrowLeftRight, ArrowUpRight, RefreshCw, Wallet } from 'lucide-react'
 import { formatMoney } from '../lib/formatters'
 
 interface DashboardSummaryProps {
@@ -19,37 +19,57 @@ export default function DashboardSummary({
   onOpenTransfer,
 }: DashboardSummaryProps) {
   return (
-    <section className="summary-stack" aria-label="Resumen financiero">
-      <article className="balance-panel">
-        <div className="balance-panel-top">
-          <span>Tu saldo disponible</span>
-          <span className="balance-chip">
+    <section className="overview-top" aria-label="Resumen financiero">
+      <article className="hero-balance">
+        <div className="hero-head">
+          <span className="hero-label">Tu saldo disponible</span>
+          <span className="hero-chip">
             <Wallet size={14} />{accountCount} {accountCount === 1 ? 'cuenta' : 'cuentas'}
           </span>
         </div>
-        <div className="balance-value">
-          {loading ? <span className="balance-skeleton" /> : formatMoney(totalBalance)}
+        <div className="hero-amount">
+          {loading ? <span className="hero-skeleton" /> : formatMoney(totalBalance)}
         </div>
-        <div className="balance-panel-bottom">
-          <span>Suma de todas tus cuentas · USD</span>
-          <button onClick={onRefresh} aria-label="Actualizar saldos" title="Actualizar saldos">
-            <RefreshCw size={16} />
-          </button>
+        <div className="hero-foot">
+          <span className="hero-caption">Suma de todas tus cuentas · USD</span>
+          <div className="hero-actions">
+            <button
+              type="button"
+              className="hero-btn hero-btn-ghost"
+              onClick={onRefresh}
+              aria-label="Actualizar saldos"
+              title="Actualizar saldos"
+            >
+              <RefreshCw size={15} />
+            </button>
+            <button
+              type="button"
+              className="hero-btn hero-btn-solid"
+              onClick={onOpenTransfer}
+              disabled={accountCount === 0}
+            >
+              <ArrowUpRight size={16} />Enviar dinero
+            </button>
+          </div>
         </div>
-        <div className="balance-decoration balance-decoration-one" />
-        <div className="balance-decoration balance-decoration-two" />
       </article>
-      <article className="metric-panel">
-        <div className="metric-icon metric-icon-mint"><ArrowLeftRight size={18} /></div>
-        <span className="metric-label">Movimientos</span>
-        <strong className="metric-value">{loading ? '—' : transactionCount}</strong>
-        <span className="metric-footnote">Registrados hasta hoy</span>
-      </article>
-      <button className="transfer-cta" onClick={onOpenTransfer} disabled={accountCount === 0}>
-        <span className="cta-icon"><ArrowUpRight size={20} /></span>
-        <span><strong>Enviar dinero</strong><small>A otra cuenta Cobalto</small></span>
-        <ArrowRight className="cta-arrow" size={18} />
-      </button>
+
+      <div className="stat-stack">
+        <article className="stat-card">
+          <span className="stat-icon"><ArrowLeftRight size={18} /></span>
+          <div>
+            <span className="stat-label">Movimientos</span>
+            <strong className="stat-value">{loading ? '—' : transactionCount}</strong>
+          </div>
+        </article>
+        <article className="stat-card">
+          <span className="stat-icon stat-icon-alt"><Wallet size={18} /></span>
+          <div>
+            <span className="stat-label">Cuentas activas</span>
+            <strong className="stat-value">{loading ? '—' : accountCount}</strong>
+          </div>
+        </article>
+      </div>
     </section>
   )
 }
