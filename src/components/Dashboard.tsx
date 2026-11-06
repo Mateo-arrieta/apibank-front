@@ -147,6 +147,9 @@ export default function Dashboard({
                       transactions={accountTransactions}
                       loading={loading}
                       onOpenTransfer={() => setTransferOpen(true)}
+                      variant="table"
+                      accounts={accounts}
+                      onSelectAccount={onSelectAccount}
                     />
                   )}
                 />
